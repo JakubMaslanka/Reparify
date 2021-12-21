@@ -5,9 +5,9 @@ import * as Google from 'passport-google-oauth20';
 import { GraphQLLocalStrategy } from "graphql-passport";
 
 import User from "../MongoDB/models/User";
-import { IUser } from "../MongoDB/interfaces/user";
+import { IUser } from "../interfaces/user";
 import { NativeError } from "mongoose";
-import { processEnvValues } from "../MongoDB/interfaces/root";
+import { processEnvValues } from "../interfaces/root";
 
 export const hashPassword = (password: string): string => {
     const salt = bcrypt.genSaltSync(13);

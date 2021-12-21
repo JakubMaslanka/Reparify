@@ -1,5 +1,5 @@
 import { Schema, model } from 'mongoose';
-import { IUser } from '../interfaces/user';
+import { IUser } from '../../interfaces/user';
 import bcrypt from "bcrypt";
 
 const UserSchema = new Schema<IUser>({
@@ -29,13 +29,6 @@ const UserSchema = new Schema<IUser>({
     avatar: String
 });
 
-// UserSchema.methods.comparePassword = (candidatePassword, cb) => {
-//     const self: any = this;
-//     bcrypt.compare(candidatePassword, self.password, (err, isMatch) => {
-//         if (err) return cb(err);
-//         cb(null, isMatch);
-//     });
-// };
 UserSchema.methods.comparePassword = async function (passwordToCompare: string): Promise<boolean> {
     return bcrypt.compare(passwordToCompare, this.password);
 };

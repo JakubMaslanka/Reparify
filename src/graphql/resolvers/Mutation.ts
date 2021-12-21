@@ -1,6 +1,6 @@
 import { hashPassword } from "../../data/auth";
 import { generateAvater } from "../../data/helpers";
-import { ILoginCredentials, ISignupCredentials } from "../../MongoDB/interfaces/credentials";
+import { ILoginCredentials, ISignupCredentials } from "../../interfaces/credentials";
 
 import User from "../../MongoDB/models/User"
 
