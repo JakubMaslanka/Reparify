@@ -1,23 +1,45 @@
 import { Schema, model } from 'mongoose';
+import { IUser } from '../interfaces/user';
+import bcrypt from "bcrypt";
 
-interface User {
-    firstName: string,
-    lastName: string,
-    password: string,
-    email: string,
-    createdAt: string,
-    avatar: string
-}
-
-const userSchema = new Schema<User>({
+const UserSchema = new Schema<IUser>({
     firstName: String,
     lastName: String,
+    companyName: {
+        type: String,
+        required: false
+    },
+    provider: {
+        type: String,
+        required: false
+    },
+    facebookId: {
+        type: String,
+        required: false
+    },
+    googleId: {
+        type: String,
+        required: false
+    },
+    isAdmin: Boolean,
+    isWorkshop: Boolean,
     password: String,
     email: String,
     createdAt: String,
     avatar: String
 });
 
-const User = model<User>('users', userSchema);
+// UserSchema.methods.comparePassword = (candidatePassword, cb) => {
+//     const self: any = this;
+//     bcrypt.compare(candidatePassword, self.password, (err, isMatch) => {
+//         if (err) return cb(err);
+//         cb(null, isMatch);
+//     });
+// };
+UserSchema.methods.comparePassword = async function (passwordToCompare: string): Promise<boolean> {
+    return bcrypt.compare(passwordToCompare, this.password);
+};
+
+const User = model<IUser>('users', UserSchema);
 
 export default User;
