@@ -1,15 +1,17 @@
 import React from 'react';
 import { useQuery } from '@apollo/client';
 import { useNavigate } from 'react-router-dom';
-import { GET_ALL_VEHICLES } from '../../api/queries';
+import { GET_CURRENT_USER_VEHICLE } from '../../api/queries';
 import { Vehicle } from '../../models/vehicle';
-import { Navbar } from '../Navbar/Navbar';
+import { Menu } from '../Menu';
+import { BiCar } from "react-icons/bi";
 import Carousel, { slidesToShowPlugin } from '@brainhubeu/react-carousel';
 import { LoadingSpinner } from '../../utils/LoadingSpinner';
 import '@brainhubeu/react-carousel/lib/style.css';
 
 export const Dashboard: React.FC = () => {
-  const { loading, error, data } = useQuery(GET_ALL_VEHICLES, {
+  const navigate = useNavigate();
+  const { loading, error, data } = useQuery(GET_CURRENT_USER_VEHICLE, {
     onError: (error) => {
       console.log(error.message);
     },
@@ -20,27 +22,42 @@ export const Dashboard: React.FC = () => {
   } else if (error) {
     return <h1>Couldn't load the content...</h1>
   }
-  const { vehicles } = data;
+  
+  const { currentUserVehicles } = data;
 
   return (
     <>
-      <Navbar title="Dashboard"/>
+      <Menu title="Dashboard" userVehicles={currentUserVehicles} />
       <div className="w-full text-gray-100 text-xl font-semibold px-4 mt-4">Your cars:</div>
-      <Carousel plugins={[
-          'clickToChange',
-          {
-            resolve: slidesToShowPlugin,
-            options: {
-              numberOfSlides: 2
-            }
-          },
-        ]} itemWidth={275}>
-          {
-            vehicles.map((vehicle: Vehicle)  => (
-              <VehicleCard key={vehicle.vin} vehicle={vehicle} />
-            ))
-          }
-      </Carousel>
+      {
+        currentUserVehicles.length > 0 ? (
+          <Carousel 
+            plugins={[
+              'clickToChange',
+              {
+                resolve: slidesToShowPlugin,
+                options: {
+                  numberOfSlides: 2
+                }
+              },
+            ]} 
+            itemWidth={275}
+          >
+              {
+                currentUserVehicles.map((vehicle: Vehicle)  => (
+                  <VehicleCard key={vehicle.id} vehicle={vehicle} />
+                ))
+              }
+          </Carousel>
+        ) : (
+          <div className="px-4 mt-4 text-center">
+            <div className="w-full flex flex-col justify-center items-center gap-8 bg-gray-800 rounded-xl shadow-xl p-4">
+              <p className="text-gray-200 text-lg font-semibold">It looks like you don't own any vehicles...</p>
+              <div onClick={() => navigate('/vehicle/add')} className="flex items-center gap-2 border-2 rounded-full border-greenish-dark hover:bg-greenish-dark text-greenish-light hover:text-gray-800 text-lg font-medium px-4 py-2 cursor-pointer"><BiCar />Add vehicle!</div>
+            </div>
+          </div>
+        )
+      }
     </>
   );
 };

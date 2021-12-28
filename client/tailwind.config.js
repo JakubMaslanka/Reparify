@@ -2,6 +2,7 @@ const colors = require('tailwindcss/colors');
 
 module.exports = {
   important: true,
+  mode: 'jit',
   purge: {
     content: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
     safelist: [
@@ -69,6 +70,7 @@ module.exports = {
   },
   variants: {
     extend: {
+      scale: ['hover'],
       opacity: ['disabled'],
       backgroundColor: ['disabled', 'checked'],
       cursor: ['disabled'],

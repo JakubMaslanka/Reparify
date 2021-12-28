@@ -1,5 +1,6 @@
-export interface Vehicle {
-    id: string,
+import mongoose from "mongoose";
+
+export type IVehicle = mongoose.Document & {
     mark: string,
     model: string,
     vin: string,
@@ -10,17 +11,13 @@ export interface Vehicle {
     power: Number,
     transmission: string,
     bodyType: string,
-    owner: string,
     createdAt: string,
     techReviewExpDate: string,
     insuranceExpDate: string,
+    owner: string,
     repairList: {
-        createdAt: string,
+        date: string,
         workshop: string,
         description: string
-    }[],
-    user?: {
-        type: any,
-        ref: string
-    }
+    }[]
 }
