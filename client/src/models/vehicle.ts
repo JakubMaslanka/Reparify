@@ -4,6 +4,7 @@ export interface Vehicle {
     model: string,
     vin: string,
     productionYear: Number,
+    mileage: Number,
     photos: string[],
     fuelType: string,
     power: Number,
@@ -14,7 +15,7 @@ export interface Vehicle {
     techReviewExpDate: string,
     insuranceExpDate: string,
     repairList: {
-        date: string,
+        createdAt: string,
         workshop: string,
         description: string
     }[],
