@@ -8,6 +8,9 @@ const typeDefs = gql`
 
     type Query {
         vehicles: [Vehicle!]!
+        vehicle(id: ID!): Vehicle!
+        currentUserVehicles: [Vehicle]!
+        user(id: ID!): User!
         currentUser: User
     }
 
@@ -53,19 +56,20 @@ const typeDefs = gql`
     }
 
     type Vehicle {
-        id: ID
+        id: ID!
         mark: String!
         model: String!
         vin: String!
         techReviewExpDate: String!
         insuranceExpDate: String!
         productionYear: Int!
+        mileage: Int!
         photos: [String]
         fuelType: String
         power: Int
         transmission: String
         bodyType: String
-        owner: String!
+        owner: User!
         createdAt: String!
         repairList: [Repair]!
     }

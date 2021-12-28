@@ -73,12 +73,12 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
             app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
             app.get('/auth/google/callback', passport.authenticate('google', { 
                 failureRedirect: `${process.env.CLIENT_URI!}/login`}),
-                (_req: Request, res: Response) => res.redirect(process.env.CLIENT_URI!));
+                (_req: Request, res: Response) => res.redirect(`${process.env.CLIENT_URI!}/dashboard`));
 
             app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['email'] }));
             app.get('/auth/facebook/callback', passport.authenticate('facebook', {
                 failureRedirect: `${process.env.CLIENT_URI!}/login`}),
-                (_req: Request, res: Response) => res.redirect(process.env.CLIENT_URI!));
+                (_req: Request, res: Response) => res.redirect(`${process.env.CLIENT_URI!}/dashboard`));
 
             await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
             console.log(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
