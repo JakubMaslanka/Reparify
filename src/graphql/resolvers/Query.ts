@@ -1,11 +1,6 @@
+import { requireAuthorizedUser } from ".";
 import { IUser } from "../../interfaces/user";
 import Vehicle from "../../MongoDB/models/Vehicle"
-
-function requireAuthorizedUser(currentUser: IUser | null) {
-    if (!currentUser) {
-        throw new Error("Unauthorized access. Please log in.")
-    }
-};
 
 const Query = {
     vehicles: async () => {

@@ -18,6 +18,9 @@ const typeDefs = gql`
         login(input: LoginInput!): AuthResult!
         signup(input: SignupInput!): AuthResult!
         logout: Boolean
+        addRepair(id: ID!, input: RepairInput!): VehicleRepairResult!
+        editRepair(id: ID!, input: RepairInput!, repairId: String!): VehicleRepairResult!
+        removeRepair(id: ID!, repairId: String!): VehicleRepairResult!
     }
 
     input LoginInput {
@@ -31,7 +34,24 @@ const typeDefs = gql`
         lastName: String!
         password: String!
     }
-    
+
+    input RepairInput {
+        workshop: String!
+        mileage: Int!
+        description: String!
+        oilChange: Boolean!
+        oilFilterChange: Boolean!
+        fuelFilterChange: Boolean!
+        dustFilterChange: Boolean!
+        sparkPlugsChange: Boolean!
+        airConditioningReview: Boolean!
+        brakeFluid: Boolean!
+        coolantFluid: Boolean!
+        engineTiming: Boolean!
+        recommendations: String
+        otherChanges: String
+    }
+
     interface MutationResult {
         success: Boolean!
         message: String!
@@ -41,6 +61,12 @@ const typeDefs = gql`
         success: Boolean!
         message: String!
         currentUser: User
+    }
+
+    type VehicleRepairResult implements MutationResult {
+        success: Boolean!
+        message: String!
+        vehicle: Vehicle
     }
 
     type User {
@@ -71,13 +97,27 @@ const typeDefs = gql`
         bodyType: String
         owner: User!
         createdAt: String!
-        repairList: [Repair]!
+        repairList: [Repair]
     }
 
     type Repair {
+        _id: ID!
         createdAt: String!
+        updatedAt: String
         workshop: String!
-        description: String
+        mileage: Int!
+        description: String!
+        oilChange: Boolean!
+        oilFilterChange: Boolean!
+        fuelFilterChange: Boolean!
+        dustFilterChange: Boolean!
+        sparkPlugsChange: Boolean!
+        airConditioningReview: Boolean!
+        brakeFluid: Boolean!
+        coolantFluid: Boolean!
+        engineTiming: Boolean!
+        recommendations: String
+        otherChanges: String
     }
 `;
 

@@ -1,6 +1,13 @@
 import Query from "./Query";
 import Mutation from "./Mutation";
 import User from "../../MongoDB/models/User";
+import { IUser } from "../../interfaces/user";
+
+export function requireAuthorizedUser(currentUser: IUser | null) {
+  if (!currentUser) {
+      throw new Error("Unauthorized access. Please log in.")
+  }
+};
 
 const resolvers = {
   Query,

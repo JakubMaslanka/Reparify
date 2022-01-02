@@ -1,23 +1,20 @@
-import mongoose from "mongoose";
+import { Document, SchemaDefinitionProperty } from "mongoose";
+import { IRepair } from "./repair";
 
-export type IVehicle = mongoose.Document & {
+export type IVehicle = Document & {
     mark: string,
     model: string,
     vin: string,
-    productionYear: Number,
-    mileage: Number,
+    productionYear: SchemaDefinitionProperty<Number>,
+    mileage: SchemaDefinitionProperty<Number>,
     photos: string[],
     fuelType: string,
-    power: Number,
+    power: SchemaDefinitionProperty<Number>,
     transmission: string,
     bodyType: string,
     createdAt: string,
     techReviewExpDate: string,
     insuranceExpDate: string,
     owner: string,
-    repairList: {
-        date: string,
-        workshop: string,
-        description: string
-    }[]
+    repairList: IRepair[]
 }
