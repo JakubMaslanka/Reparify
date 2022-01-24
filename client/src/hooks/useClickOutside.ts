@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 
 function useClickOutside(handler: () => void) {
-    const domNode: any = useRef();
+  const domNode: any = useRef();
 
   useEffect(() => {
     const onCloseHandler = (e: Event) => {
