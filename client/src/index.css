@@ -2,10 +2,28 @@
 @tailwind components;
 @tailwind utilities;
 
-html::-webkit-scrollbar {
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+div::-webkit-scrollbar {
     display: none;
     -ms-overflow-style: none;
     scrollbar-width: none;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button,
+input::-webkit-file-upload-button {
+  -webkit-appearance: none;
+  margin: 0;
+  visibility: hidden;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+::-webkit-calendar-picker-indicator {
+    filter: invert(1);
 }
 
 @layer components {
@@ -26,29 +44,38 @@ html::-webkit-scrollbar {
         transition-all duration-100 scale-0 origin-left;
     }
 
-    .cool-border {
+    .DaysLeftCounter_border {
         @apply absolute -top-4 text-gray-200 p-1 text-sm font-semibold bg-gray-700;
     }
 
-    .button-primary {
+    .ActiveBar_button--primary {
         @apply text-gray-800 bg-greenish-light hover:bg-gray-800 hover:text-greenish-light transition-all duration-100 ease-linear cursor-pointer shadow-2xl px-4 py-2 rounded-xl font-semibold;
     }
 
-    .button-normal {
+    .ActiveBar_button--normal {
         @apply bg-gray-800 text-greenish-light hover:bg-gray-900 hover:text-greenish-dark transition-all duration-100 ease-linear cursor-pointer shadow-2xl px-4 py-2 rounded-xl font-semibold;
     }
 
-    .button-danger {
+    .ActiveBar_button--danger {
         @apply text-gray-800 bg-danger-light hover:bg-danger-dark hover:text-gray-200 transition-all duration-100 ease-linear cursor-pointer shadow-2xl px-4 py-2 rounded-xl font-semibold;
     }
 
     input:checked ~ .switch-dot {
         transform: translateX(100%);
-        background-color: #ffbb78;
+        background-color: #FCFCFC;
+    }
+
+    input:checked ~ .switch-bg {
+        background-color: #4FDC7C;
     }
 
     .switch-dot {
-        @apply absolute bg-indigo-700 left-1 top-1 w-6 h-6 rounded-full transition-all;
-        background-color: #11bb78;
+        @apply absolute left-1 top-1 cursor-pointer w-6 h-6 rounded-full transition-all;
+        background-color: #DFDFDF;
+    }
+    .switch-bg {
+        @apply block w-14 h-8 rounded-full;
+        background-color: transparent;
+        border: 1px solid #999999;
     }
 }
