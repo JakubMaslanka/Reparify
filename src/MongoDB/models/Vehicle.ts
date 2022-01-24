@@ -15,6 +15,22 @@ const vehicleSchema = new Schema<IVehicle>({
         type: Number,
         min: 1
     },
+    isArchived: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    isMarkedForSale: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    price: {
+        type: Number,
+        min: 1,
+        max: 1000000,
+        default: undefined
+    },
     fuelType: String,
     power: {
         type: Number,

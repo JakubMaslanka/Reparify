@@ -7,6 +7,9 @@ export type IVehicle = Document & {
     vin: string,
     productionYear: SchemaDefinitionProperty<Number>,
     mileage: SchemaDefinitionProperty<Number>,
+    isArchived: boolean,
+    isMarkedForSale: boolean,
+    price: number | undefined,
     photos: string[],
     fuelType: string,
     power: SchemaDefinitionProperty<Number>,
@@ -17,4 +20,17 @@ export type IVehicle = Document & {
     insuranceExpDate: string,
     owner: string,
     repairList: IRepair[]
+}
+
+export interface IUpdateVehicleInput {
+    mark: string,
+    model: string,
+    productionYear: number,
+    photos: string[],
+    fuelType: string,
+    power: number,
+    transmission: string,
+    bodyType: string,
+    techReviewExpDate: string,
+    insuranceExpDate: string
 }
