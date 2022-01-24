@@ -1,22 +1,22 @@
-import { Vehicle } from '../../models/vehicle';
+import { IVehicle } from '../../models/vehicle';
 import { TransitionWrapper } from "../../utils/TransitionWrapper";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useNavigate } from 'react-router-dom';
 
 interface SideBarProps {
-    setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
     openMenu: boolean;
-    userVehicles: Vehicle[];
-    setActiveVehicle: React.Dispatch<React.SetStateAction<Vehicle | null>>;
-    setVehicleSelected: React.Dispatch<React.SetStateAction<boolean>>;
+    userVehicles: IVehicle[];
     children: JSX.Element[] | React.ReactNode;
+    setOpenMenu: React.Dispatch<React.SetStateAction<boolean>>;
+    setActiveVehicle: React.Dispatch<React.SetStateAction<IVehicle | null>>;
+    setVehicleSelected: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export const SideBar: React.FC<SideBarProps> = ({
     setOpenMenu,
-    setActiveVehicle, 
-    setVehicleSelected, 
-    openMenu, 
-    userVehicles, 
+    setActiveVehicle,
+    setVehicleSelected,
+    openMenu,
+    userVehicles,
     children
 }) => {
     const navigate = useNavigate();
@@ -33,7 +33,7 @@ export const SideBar: React.FC<SideBarProps> = ({
                     <div className="w-full text-gray-500 text-xl font-semibold p-4">Reparify</div>
                     <hr className="w-full mb-4 border-gray-500" />
                     <div className="flex flex-col items-center justify-start gap-2 px-4">
-                        {userVehicles.map((vehicle: Vehicle) => (
+                        {userVehicles.map((vehicle: IVehicle) => (
                             <div key={vehicle.id} onClick={() => {
                                 setActiveVehicle(vehicle);
                                 setVehicleSelected((prev: boolean) => !prev);

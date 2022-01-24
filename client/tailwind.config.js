@@ -1,4 +1,5 @@
 const colors = require('tailwindcss/colors');
+const defaultTheme = require('tailwindcss/defaultTheme');
 
 module.exports = {
   important: true,
@@ -13,6 +14,15 @@ module.exports = {
   },
   darkMode: false,
   theme: {
+    extend: {
+      height: {
+        '128': '32rem',
+      },
+      screens: {
+        'xxs': '380px',
+        ...defaultTheme.screens,
+      },
+    },
     colors: {
       transparent: 'transparent',
       'white': {

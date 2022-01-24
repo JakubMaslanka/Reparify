@@ -4,12 +4,17 @@ import { useNavigate } from 'react-router-dom';
 import { LOGOUT_MUTATION } from '../api/mutations';
 import { GET_CURRENT_USER } from '../api/queries';
 import { ICurrentUser } from '../models/currentUser';
+import Toast from './Toast';
 
 interface ContextInterface {
     currentUser: ICurrentUser | null
     isAuthorize: () => boolean
     unauthorize: () => void
 };
+
+interface AuthProviderProps {
+    children: JSX.Element[]
+}
 
 const DEFAULT_CONTEXT_VALUE = {
     currentUser: null,
@@ -23,21 +28,14 @@ export const useAuth = (): ContextInterface => (
     useContext(AuthContext)
 );
 
-const AuthProvider: React.FC<{children: any}> = ({children}) => {
+const AuthProvider: React.FC<AuthProviderProps> = ({children}) => {
     const navigate = useNavigate();
-    // const location = useLocation();
-    //@ts-ignore
-    // const from = location.state.from.pathname || "/";
-    // navigate(from, { replace: true });
     const { loading, error, data, client, refetch } = useQuery(GET_CURRENT_USER, {
-        onError: (error) => {
-            console.log(error.message);
-        },
+        onError: error => Toast('error', error.message),
         errorPolicy: "all",
     });
     const [logout] = useMutation(LOGOUT_MUTATION);
     
-    // Doesn't work properly
     const isAuthorize = () => {
         refetch();
         return !!data?.currentUser;

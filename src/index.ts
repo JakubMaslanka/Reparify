@@ -7,6 +7,7 @@ import { connect } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
 import { DocumentNode } from 'graphql';
 import { buildContext } from "graphql-passport";
+import { graphqlUploadExpress } from 'graphql-upload';
 import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageDisabled, ApolloServerPluginLandingPageGraphQLPlayground } from 'apollo-server-core';
 
 import typeDefs from './graphql/typeDefs';
@@ -47,15 +48,19 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
     }));
     app.use(passport.initialize());
     app.use(passport.session());
+    app.use(graphqlUploadExpress({ maxFileSize: 750000 }));
+    app.use('/vehicle_pictures', express.static(__dirname + '/public'));
 
     const server = new ApolloServer({
         typeDefs,
         resolvers,
         context: ({ req, res }) => buildContext({ req, res }),
-        plugins: [
+        plugins: process.env.NODE_ENV !== "production" ? [
             ApolloServerPluginDrainHttpServer({ httpServer }),
             ApolloServerPluginLandingPageGraphQLPlayground(), 
             ApolloServerPluginLandingPageDisabled()
+        ] : [
+            ApolloServerPluginDrainHttpServer({ httpServer })
         ]
     });
 
@@ -69,7 +74,7 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
                 path: '/graphql',
                 cors: corsOptions
             });
-
+            
             app.get('/auth/google', passport.authenticate('google', { scope: ['email', 'profile'] }));
             app.get('/auth/google/callback', passport.authenticate('google', { 
                 failureRedirect: `${process.env.CLIENT_URI!}/login`}),

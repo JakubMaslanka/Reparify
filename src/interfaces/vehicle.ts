@@ -1,23 +1,36 @@
-import mongoose from "mongoose";
+import { Document, SchemaDefinitionProperty } from "mongoose";
+import { IRepair } from "./repair";
 
-export type IVehicle = mongoose.Document & {
+export type IVehicle = Document & {
     mark: string,
     model: string,
     vin: string,
-    productionYear: Number,
-    mileage: Number,
+    productionYear: SchemaDefinitionProperty<Number>,
+    mileage: SchemaDefinitionProperty<Number>,
+    isArchived: boolean,
+    isMarkedForSale: boolean,
+    price: number | undefined,
     photos: string[],
     fuelType: string,
-    power: Number,
+    power: SchemaDefinitionProperty<Number>,
     transmission: string,
     bodyType: string,
     createdAt: string,
     techReviewExpDate: string,
     insuranceExpDate: string,
     owner: string,
-    repairList: {
-        date: string,
-        workshop: string,
-        description: string
-    }[]
+    repairList: IRepair[]
+}
+
+export interface IUpdateVehicleInput {
+    mark: string,
+    model: string,
+    productionYear: number,
+    photos: string[],
+    fuelType: string,
+    power: number,
+    transmission: string,
+    bodyType: string,
+    techReviewExpDate: string,
+    insuranceExpDate: string
 }
