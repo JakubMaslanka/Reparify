@@ -1,0 +1,90 @@
+version: '3.9'
+
+services:
+  mongo_db:
+    container_name: db_container
+    image: mongo:latest
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: ZhBM95HmLXqymSMFcdmYzEc7gc
+      MONGO_INITDB_DATABASE: reparify
+    ports:
+      - 2717:27017
+    volumes: 
+      - mongo_db:/data/db
+    networks:
+      - shared-network
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-prod
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+    command: /bin/sh -c "nginx -g 'daemon off;'"
+    depends_on:
+      server:
+        condition: service_healthy
+      client:
+        condition: service_started
+    networks:
+      - shared-network
+  
+  server:
+    container_name: reparify_server_gql
+    restart: unless-stopped
+    image: reparify-server-gql-prod:0.1.0
+    build:
+      context: server
+      target: production
+      dockerfile: Dockerfile
+    volumes:
+      - ./server/src/public:/usr/reparify/server/dist/public
+    environment:
+      NODE_ENV: production
+      MONGODB_URI: mongodb://mongo_db:27017
+      MONGODB_CONNECTION_URI: mongodb+srv://root:Jmd2xd5uaqHk86S@reparify.wol64.mongodb.net/reparify?retryWrites=true&w=majority
+      DB_NAME: reparify
+      DB_USER: root
+      DB_PASS: ZhBM95HmLXqymSMFcdmYzEc7gc
+      CLIENT_URI: http://localhost
+      GOOGLE_CLIENT_ID: 1082517438053-4juq07q7ml0jgmaffnvvp7n5jlc9r3ib.apps.googleusercontent.com
+      GOOGLE_CLIENT_SECRET: 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
+      FACEBOOK_APP_ID: 879497339414023
+      FACEBOOK_APP_SECRET: cb3c512e6aae91ddb88efccd0695d152
+    healthcheck:
+      test: ["CMD", "curl", "http://server:4000"]
+      interval: 5s
+      timeout: 3s
+      retries: 15
+      start_period: 30s
+    ports:
+      - 4000:4000
+    networks:
+      - shared-network
+    depends_on:
+      - mongo_db
+  
+  client:
+    container_name: reparify_client
+    restart: unless-stopped
+    image: reparify-client-prod:0.1.0
+    build:
+      context: client
+      target: production
+      dockerfile: Dockerfile
+    ports:
+      - 3000:3000
+    networks:
+      - shared-network
+    depends_on:
+      - server
+
+volumes:
+  mongo_db: {}
+  images_dir: {}
+
+networks:
+  shared-network:

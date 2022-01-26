@@ -208,7 +208,7 @@ const OtherActions = {
         if (!id) {
             throw Error("Incorrect id.")
         }
-        const directoryPath = path.join(__dirname, `../../src/public/${id}`);
+        const directoryPath = path.join(__dirname, `../../${process.env.NODE_ENV !== "production" ? 'src' : 'dist'}/public/${id}`);
 
         if (!fs.existsSync(directoryPath)){
             fs.mkdirSync(directoryPath, { recursive: true });

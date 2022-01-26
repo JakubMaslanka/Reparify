@@ -14,8 +14,6 @@ import { ToastContainer } from "react-toastify";
 
 import AuthProvider from "./utils/AuthProvider";
 
-const GRAPHQL_ENDPOINT = "http://localhost:4000/graphql";
-
 const cache = new InMemoryCache({
   addTypename: true,
   resultCaching: false,
@@ -25,7 +23,7 @@ const client = new ApolloClient({
   // @ts-ignore
   link: createUploadLink({
     credentials: 'include',
-    uri: GRAPHQL_ENDPOINT
+    uri: 'http://localhost:4000/graphql',
   }),
   cache
 });

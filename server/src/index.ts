@@ -2,6 +2,7 @@ import * as dotenv from 'dotenv';
 import express, { Request, Response } from 'express';
 import http from 'http';
 import session from 'express-session';
+import MongoStore from 'connect-mongo';
 import passport from 'passport';
 import { connect } from 'mongoose';
 import { ApolloServer } from 'apollo-server-express';
@@ -20,6 +21,7 @@ dotenv.config();
 const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any) {
     const app = express();
     const httpServer = http.createServer(app);
+    
     const corsOptions = {
         origin: process.env.CLIENT_URI!,
         credentials: true 
@@ -36,13 +38,33 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
         console.log(error)
     }
 
+    const uri = process.env.NODE_ENV !== "production" ?
+        `${process.env.MONGO_STARTPOINT!}${process.env.MONGO_USERNAME!}:${process.env.MONGO_PASSWORD!}${process.env.MONGO_ENDPOINT!}` 
+        : process.env.MONGODB_URI!;
+
+    const options = process.env.NODE_ENV !== "production" ?
+        undefined
+        : {
+            dbName: process.env.DB_NAME,
+            user: process.env.DB_USER,
+            pass: process.env.DB_PASS
+        };
+
+    const store = process.env.NODE_ENV !== "production" ?
+        undefined
+        : MongoStore.create({
+            mongoUrl: process.env.MONGODB_CONNECTION_URI,
+            collectionName: 'sessions'
+        });
+
     app.use(session({
         secret: process.env.SECRET!,
         resave: false,
         saveUninitialized: false,
+        store,
         cookie: {
             httpOnly: true,
-            secure: process.env.NODE_ENV === "production",
+            secure: process.env.NODE_ENV === "produciton",
             maxAge: 1000 * 60 * 60 * 24 * 7
         }
     }));
@@ -64,9 +86,10 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
         ]
     });
 
-    await connect(`${process.env.MONGO_STARTPOINT!}${process.env.MONGO_USERNAME!}:${process.env.MONGO_PASSWORD!}${process.env.MONGO_ENDPOINT!}`)
+    await connect(uri, options)
         .then(async () => {
             console.log('MongoDB connected!')
+            console.log(`Mode: ${process.env.NODE_ENV !== "production" ? "development" : "production"}`);
             await server.start()
 
             server.applyMiddleware({ 

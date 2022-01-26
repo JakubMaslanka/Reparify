@@ -1,0 +1,93 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const mongoose_1 = require("mongoose");
+const vehicleSchema = new mongoose_1.Schema({
+    mark: String,
+    model: String,
+    vin: String,
+    techReviewExpDate: String,
+    insuranceExpDate: String,
+    productionYear: {
+        type: Number,
+        min: 1900
+    },
+    mileage: {
+        type: Number,
+        min: 1
+    },
+    isArchived: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    isMarkedForSale: {
+        type: Boolean,
+        default: false,
+        required: true
+    },
+    price: {
+        type: Number,
+        min: 1,
+        max: 1000000,
+        default: undefined
+    },
+    fuelType: String,
+    power: {
+        type: Number,
+        min: 10,
+        max: 1000
+    },
+    transmission: String,
+    bodyType: String,
+    createdAt: {
+        type: String,
+        inmutable: true,
+        default: () => new Date(Date.now()).toDateString(),
+        required: true
+    },
+    owner: String,
+    photos: [String],
+    repairList: [
+        {
+            _id: {
+                type: String,
+                inmutable: true,
+                required: true
+            },
+            updatedAt: {
+                type: String,
+                inmutable: true,
+                required: false
+            },
+            createdAt: {
+                type: String,
+                inmutable: true,
+                default: () => new Date(Date.now()).toDateString(),
+                required: true
+            },
+            workshop: {
+                type: String,
+                inmutable: true
+            },
+            mileage: {
+                type: Number,
+                inmutable: true,
+                min: 1
+            },
+            description: String,
+            oilChange: Boolean,
+            oilFilterChange: Boolean,
+            fuelFilterChange: Boolean,
+            dustFilterChange: Boolean,
+            sparkPlugsChange: Boolean,
+            airConditioningReview: Boolean,
+            brakeFluid: Boolean,
+            coolantFluid: Boolean,
+            engineTiming: Boolean,
+            recommendations: String,
+            otherChanges: String
+        }
+    ]
+});
+const Vehicle = (0, mongoose_1.model)('vehicles', vehicleSchema);
+exports.default = Vehicle;
