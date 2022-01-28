@@ -23,7 +23,7 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
     const httpServer = http.createServer(app);
     
     const corsOptions = {
-        origin: process.env.CLIENT_URI!,
+        origin: process.env.CLIENT_URI! || 'http://localhost:3000',
         credentials: true 
     };
 
@@ -58,7 +58,7 @@ const startApolloServer = async function(typeDefs: DocumentNode, resolvers: any)
         });
 
     app.use(session({
-        secret: process.env.SECRET!,
+        secret: process.env.SECRET! || 'sessionSecret',
         resave: false,
         saveUninitialized: false,
         store,

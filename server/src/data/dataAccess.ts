@@ -227,7 +227,9 @@ const OtherActions = {
             const out = fs.createWriteStream(filePath);
             stream.pipe(out);
             await finished(out);
-            const generateUrl = `http://localhost:4000/vehicle_pictures/${id}/${generateFilename}`;
+            
+            const uri = process.env.NODE_ENV !== "production" ? 'http://localhost:4000' : 'https://reparify.com';
+            const generateUrl = `${uri}/vehicle_pictures/${id}/${generateFilename}`;
             urls.push({ url: generateUrl });
         }
         return urls;

@@ -98,13 +98,13 @@ export const LogInForm: React.FC<LoginFormProps> = ({
                         </div>
                         <div className='flex flex-col gap-4'>
                             <AuthButton 
-                                onClick={() => window.location.href = 'http://localhost:4000/auth/google'}
+                                onClick={() => window.location.href = !!process.env.SERVER_URI ? `${process.env.SERVER_URI}/auth/google` : 'http://localhost:4000/auth/google'}
                                 icon={<FaGoogle size='1.2rem'/>}
                                 label='Continue with Google'
                                 services='google'
                             />
                             <AuthButton 
-                                onClick={() => window.location.href = 'http://localhost:4000/auth/facebook'}
+                                onClick={() => window.location.href = !!process.env.SERVER_URI ? `${process.env.SERVER_URI}/auth/facebook` : 'http://localhost:4000/auth/facebook'}
                                 icon={<FaFacebook size='1.4rem'/>}
                                 label='Continue with Facebook'
                                 services='facebook'

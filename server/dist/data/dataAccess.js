@@ -196,7 +196,8 @@ const OtherActions = {
             const out = fs_1.default.createWriteStream(filePath);
             stream.pipe(out);
             await (0, promises_1.finished)(out);
-            const generateUrl = `http://localhost:4000/vehicle_pictures/${id}/${generateFilename}`;
+            const uri = process.env.NODE_ENV !== "production" ? 'http://localhost:4000' : 'https://reparify.com';
+            const generateUrl = `${uri}/vehicle_pictures/${id}/${generateFilename}`;
             urls.push({ url: generateUrl });
         }
         return urls;

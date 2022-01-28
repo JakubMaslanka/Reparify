@@ -6,12 +6,12 @@ services:
     image: mongo:latest
     restart: always
     environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: ZhBM95HmLXqymSMFcdmYzEc7gc
-      MONGO_INITDB_DATABASE: reparify
+      MONGO_INITDB_ROOT_USERNAME: _
+      MONGO_INITDB_ROOT_PASSWORD: _
+      MONGO_INITDB_DATABASE: _
     ports:
       - 2717:27017
-    volumes: 
+    volumes:
       - mongo_db:/data/db
     networks:
       - shared-network
@@ -21,9 +21,13 @@ services:
     container_name: nginx-prod
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
     ports:
       - 80:80
-    command: /bin/sh -c "nginx -g 'daemon off;'"
+      - 443:443
+    restart: always
+    command: "/bin/sh -c 'while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g \"daemon off;\"'"
     depends_on:
       server:
         condition: service_healthy
@@ -31,7 +35,12 @@ services:
         condition: service_started
     networks:
       - shared-network
-  
+  certbot:
+    image: certbot/certbot:latest
+    volumes:
+      - ./data/certbot/conf:/etc/letsencrypt
+      - ./data/certbot/www:/var/www/certbot
+    entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
   server:
     container_name: reparify_server_gql
     restart: unless-stopped
@@ -45,15 +54,16 @@ services:
     environment:
       NODE_ENV: production
       MONGODB_URI: mongodb://mongo_db:27017
-      MONGODB_CONNECTION_URI: mongodb+srv://root:Jmd2xd5uaqHk86S@reparify.wol64.mongodb.net/reparify?retryWrites=true&w=majority
-      DB_NAME: reparify
-      DB_USER: root
-      DB_PASS: ZhBM95HmLXqymSMFcdmYzEc7gc
-      CLIENT_URI: http://localhost
-      GOOGLE_CLIENT_ID: 1082517438053-4juq07q7ml0jgmaffnvvp7n5jlc9r3ib.apps.googleusercontent.com
-      GOOGLE_CLIENT_SECRET: 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
-      FACEBOOK_APP_ID: 879497339414023
-      FACEBOOK_APP_SECRET: cb3c512e6aae91ddb88efccd0695d152
+      MONGODB_CONNECTION_URI: _
+      DB_NAME: _
+      DB_USER: _
+      DB_PASS: _
+      CLIENT_URI: https://reparify.com
+      SECRET: _
+      GOOGLE_CLIENT_ID: _
+      GOOGLE_CLIENT_SECRET: _
+      FACEBOOK_APP_ID: _
+      FACEBOOK_APP_SECRET: _
     healthcheck:
       test: ["CMD", "curl", "http://server:4000"]
       interval: 5s
@@ -66,7 +76,7 @@ services:
       - shared-network
     depends_on:
       - mongo_db
-  
+
   client:
     container_name: reparify_client
     restart: unless-stopped
@@ -75,6 +85,8 @@ services:
       context: client
       target: production
       dockerfile: Dockerfile
+    environment:
+      SERVER_URI: https://reparify.com
     ports:
       - 3000:3000
     networks:

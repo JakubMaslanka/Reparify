@@ -96,7 +96,7 @@ function initializeAuth({GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID
         new Google.Strategy({
             clientID: GOOGLE_CLIENT_ID!,
             clientSecret: GOOGLE_CLIENT_SECRET!,
-            callbackURL: 'http://localhost:4000/auth/google/callback'
+            callbackURL: !!process.env.DOMAIN_NAME ? `${process.env.DOMAIN_NAME}/auth/google/callback` : 'http://localhost:4000/auth/google/callback'
             },
             googleCallback
         )
@@ -106,7 +106,7 @@ function initializeAuth({GOOGLE_CLIENT_ID, GOOGLE_CLIENT_SECRET, FACEBOOK_APP_ID
         new Facebook.Strategy({
                 clientID: FACEBOOK_APP_ID!,
                 clientSecret: FACEBOOK_APP_SECRET!,
-                callbackURL: 'http://localhost:4000/auth/facebook/callback',
+                callbackURL: !!process.env.DOMAIN_NAME ? `${process.env.DOMAIN_NAME}/auth/facebook/callback` : 'http://localhost:4000/auth/facebook/callback',
                 profileFields: ['id', 'email', 'first_name', 'last_name', 'picture'],
             },
             facebookCallback

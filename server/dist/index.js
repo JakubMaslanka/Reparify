@@ -41,7 +41,7 @@ const startApolloServer = async function (typeDefs, resolvers) {
     const app = (0, express_1.default)();
     const httpServer = http_1.default.createServer(app);
     const corsOptions = {
-        origin: process.env.CLIENT_URI,
+        origin: process.env.CLIENT_URI || 'http://localhost:3000',
         credentials: true
     };
     try {
@@ -72,7 +72,7 @@ const startApolloServer = async function (typeDefs, resolvers) {
             collectionName: 'sessions'
         });
     app.use((0, express_session_1.default)({
-        secret: process.env.SECRET,
+        secret: process.env.SECRET || 'sessionSecret',
         resave: false,
         saveUninitialized: false,
         store,
