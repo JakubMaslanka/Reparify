@@ -101,19 +101,19 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 
 ##### Login process, show dashboard page, marking the vehicle for sale
 
-[![Gif presentation, may take a long time to load](https://i.imgur.com/jjRvwON.gif)](https://i.imgur.com/jjRvwON.gif)
+[![Gif presentation, may take a long time to load](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo1.gif?raw=true)](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo1.gif?raw=true)
 
 ---
 
 ##### Process of creating and editing a vehicle profile
 
-[![Gif presentation, may take a long time to load](https://i.imgur.com/bANB9wM.gif)](https://i.imgur.com/bANB9wM.gif)
+[![Gif presentation, may take a long time to load](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo2.gif?raw=true)](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo2.gif?raw=true)
 
 ---
 
 ##### Process of creating and editing a repair entry, show sample workshop pages, application view from a user without vehicles
 
-[![Gif presentation, may take a long time to load](https://i.imgur.com/Xiop6iO.gif)](https://i.imgur.com/Xiop6iO.gif)
+[![Gif presentation, may take a long time to load](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo3.gif?raw=true)](https://github.com/JakubMaslanka/Reparify/blob/master/client/public/demo3.gif?raw=true)
 
 
 ## Setup
