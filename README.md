@@ -25,7 +25,7 @@
 Reparify is created for users who own more than one vehicle and/or want to collect repair history for future vehicle sales in one place. Supports notifications of expiring vehicle inspections and insurance. The app allows users to put the vehicle up for sale, thus allowing other users to view the profile of the sold vehicle. Otherwise, users can't access vehicle profiles, which they don't own, unless they have a unique URL containing the vehicle ID. 
 Reparify is fully responsive and can be displayed on any device with internet access.
 
-
+<br/>
 
 ##### The back-end side consists of three services:
 
@@ -41,29 +41,30 @@ It was created using the graphql-upload. The library helps to upload files by th
 
 The wrapper for this complex service is the "apollo-server-express" library. The API of the whole application. It directly communicates with the MongoDB database using mutation and query resolvers. Through them, the application gets and modifies documents in the database. The service is available under the "/graphql" endpoint.
 
-
+<br/>
 
 ##### The font-end side 
 is much less complicated because it simply displays the data provided by the GraphQL API. It is built using the relay approach. The main library allowing to make queries to the API is apollo/client. The entire client app is based on this library. 
 Routing is handled by React Router in the recently released version 6. Complex forms are managed by the well-known Formik library.
 Client authentication is provided by the Context API, which includes methods to check if the user token stored in the HTTP cookie is valid and to invalidate the token.
 
-
+<br/>
 
 The project was coded with the idea of trying new technologies, in this case, Graph Query Language, Apollo tools, and TypeScript. (... and my brother, who owns a small logistics company, a fleet of vehicles, and a mess in documents) I have enjoyed writing code in this technology stack, hence I want to develop it, thus improving Reparify.
 
+<br/>
 
+> **Credentials for testing account**<br/>
+> email: github@example.com<br/>
+> password: secret<br/>
 
-> **Credentials for testing account**
-
-> email: github@example.com
-
-> password: secret
+<br/>
 
 ## Technologies Used
 <br/>
 <img align="center" src="https://raw.githubusercontent.com/JakubMaslanka/Reparify/master/client/public/tech-logo.png" alt="Technologies_Logos" />
 <br/>
+
 ##### Front-end
 
 - React *@17.0.2*
@@ -121,13 +122,13 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 - Create a free cloud MongoDB database with MongoDB Atlas services
 - `git clone https://github.com/JakubMaslanka/Reparify.git`
 - **Create .env file inside server folder with additional params:**
-> NODE_ENV=development
-> CLIENT_URI=http://localhost:3000
-> DOMAIN_NAME=http://localhost:4000
-> MONGO_STARTPOINT=mongodb+srv://
-> MONGO_USERNAME=`username_with_rights_to_db`
-> MONGO_PASSWORD=`password`
-> MONGO_ENDPOINT=`remaining_part_of_url_to_db`
+> NODE_ENV=development<br/>
+> CLIENT_URI=http://localhost:3000<br/>
+> DOMAIN_NAME=http://localhost:4000<br/>
+> MONGO_STARTPOINT=mongodb+srv://<br/>
+> MONGO_USERNAME=`username_with_rights_to_db`<br/>
+> MONGO_PASSWORD=`password`<br/>
+> MONGO_ENDPOINT=`remaining_part_of_url_to_db`<br/>
 
 - Make sure, you are in project folder and run `yarn run install-dependencies` in terminal
 - `yarn run start:server`
