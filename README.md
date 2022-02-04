@@ -22,7 +22,7 @@
 
 ## General Information
 
-Reparify is created for users who own more than one vehicle and/or want to collect repair history for future vehicle sales in one place. Support notifications of expiring vehicle inspections and insurance. The app allows users to put the vehicle up for sale, thus allowing other users to view the profile of the sold vehicle. Otherwise, users can't access vehicle profiles, which they don't own, unless they have a unique URL containing the vehicle ID. 
+Reparify is created for users who own more than one vehicle and/or want to collect repair history for future vehicle sales in one place. Supports notifications of expiring vehicle inspections and insurance. The app allows users to put the vehicle up for sale, thus allowing other users to view the profile of the sold vehicle. Otherwise, users can't access vehicle profiles, which they don't own, unless they have a unique URL containing the vehicle ID. 
 Reparify is fully responsive and can be displayed on any device with internet access.
 
 
@@ -35,7 +35,7 @@ It is based on a session that sends a secured HTTP cookie to the user. The autho
 
 - Picture hosting service
 
-It was created using the graphql-upload. The library helps to upload files by the user in any format into our backend server and then handle them in GQL mutation resolvers. In the case of my app, the service hosts pictures of vehicles, which the user can add to his vehicle profile. The service processes the uploaded file and saves them in the local memory of the application server machine.  Pictures are available under the endpoint /vehicle_pictures.
+It was created using the graphql-upload. The library helps to upload files by the user in any format into our back-end server and then handle them in GQL mutation resolvers. In the case of my app, the service hosts pictures of vehicles, which the user can add to his vehicle profile. The service processes the uploaded file and saves them in the local memory of the application server machine.  Pictures are available under the endpoint /vehicle_pictures.
 
 - GraphQL service
 
@@ -64,8 +64,7 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 <br/>
 <img align="center" src="https://raw.githubusercontent.com/JakubMaslanka/Reparify/master/client/public/tech-logo.png" alt="Technologies_Logos" />
 <br/>
-
-##### Frontend
+##### Front-end
 
 - React *@17.0.2*
 - Apollo client *@3.5.5*
@@ -76,7 +75,7 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 
 - Tailwind CSS *@2.2.19*
 
-##### Backend 
+##### Back-end 
 
 - Express *@4.17.1*
 - Graphql *@15.7.2*
@@ -98,6 +97,23 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 
 ## Presentation
 
+<small>Presentation gifs are large in size and may take a while to load/be smooth.</small>
+
+##### Login process, show dashboard page, marking the vehicle for sale
+
+[![Gif presentation, may take a long time to load](https://i.imgur.com/jjRvwON.gif)](https://i.imgur.com/jjRvwON.gif)
+
+---
+
+##### Process of creating and editing a vehicle profile
+
+[![Gif presentation, may take a long time to load](https://i.imgur.com/bANB9wM.gif)](https://i.imgur.com/bANB9wM.gif)
+
+---
+
+##### Process of creating and editing a repair entry, show sample workshop pages, application view from a user without vehicles
+
+[![Gif presentation, may take a long time to load](https://i.imgur.com/Xiop6iO.gif)](https://i.imgur.com/Xiop6iO.gif)
 
 
 ## Setup
@@ -125,12 +141,13 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 
 The project is in the **in-progress** state. The current repository shows the alpha version, which provides the main functionality of creating vehicle profiles and adding repair entries to them. However, I have plans to constantly develop new features and improvements.
 
+
 ## Future Plans
 
 Future Plans:
 
-- Add the possibility of creating workshop profiles. As an alternative to websites for workshops, they will contain all the necessary information about the company.
-- Add the system to verification repairs added by the user by sending some form of repair proof to the application admins.
+- Add the possibility of creating workshop profiles. An alternative to websites for workshops, they will contain all the necessary information about the company.
+- Add a system that verifies user added repairs by requesting some form of repair proof for the app admins/algorithms.
 - Possibility to comment and rate workshops by app users. 
 - Search vehicles by text for vehicles' VIN number or repair description.
 - Add the whole module, allowing to chat between users and workshops.  
@@ -138,14 +155,17 @@ Future Plans:
 - Add confirmation e-mail address process and the possibility of password reminder.
 - Add a reCAPTCHA, to vehicles' Vin numbers or some requests to the vehicle owner to provide Vin address.
 
+
 ## Acknowledgements
 
 - Thanks to [@ipenywis](https://github.com/ipenywis) for creating great tutorials that helped me figure out how docker works in practice.
 - Many thanks to [@mehowte](https://github.com/mehowte) for creating a [course](https://graphqlmastery.pl/) that got me hooked on GraphQL and showed the power of this technology.
 
+
 ## License
 
 [MIT](https://opensource.org/licenses/MIT)
+
 
 ## Contact
 
