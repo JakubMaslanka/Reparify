@@ -12,7 +12,7 @@
 
 - [General Info](https://github.com/JakubMaslanka/Reparify#general-information)
 - [Technologies Used](https://github.com/JakubMaslanka/Reparify#technologies-used)
-- [Screenshots](https://github.com/JakubMaslanka/Reparify#screenshots)
+- [Presentation](https://github.com/JakubMaslanka/Reparify#presentation)
 - [Setup](https://github.com/JakubMaslanka/Reparify#setup)
 - [Project Status](https://github.com/JakubMaslanka/Reparify#project-status)
 - [Future Plans](https://github.com/JakubMaslanka/Reparify#future-plans)
@@ -27,7 +27,7 @@ Reparify is fully responsive and can be displayed on any device with internet ac
 
 
 
-###### The back-end side consists of three services:
+##### The back-end side consists of three services:
 
 - User authentication service
 
@@ -43,7 +43,7 @@ The wrapper for this complex service is the "apollo-server-express" library. The
 
 
 
-###### The font-end side 
+##### The font-end side 
 is much less complicated because it simply displays the data provided by the GraphQL API. It is built using the relay approach. The main library allowing to make queries to the API is apollo/client. The entire client app is based on this library. 
 Routing is handled by React Router in the recently released version 6. Complex forms are managed by the well-known Formik library.
 Client authentication is provided by the Context API, which includes methods to check if the user token stored in the HTTP cookie is valid and to invalidate the token.
@@ -55,24 +55,27 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 
 
 > **Credentials for testing account**
+
 > email: github@example.com
+
 > password: secret
 
 ## Technologies Used
-
-###### Frontend
+<br/>
+<img align="center" src="https://raw.githubusercontent.com/JakubMaslanka/Reparify/master/client/public/tech-logo.png" alt="Technologies_Logos" />
+<br/>
+##### Frontend
 
 - React *@17.0.2*
 - Apollo client *@3.5.5*
 - React Router Dom *@6.0.0*
 - Formik *@2.2.9*
-- HeadlessUI *@1.4.2*
 
-###### Styles
+##### Styles
 
 - Tailwind CSS *@2.2.19*
 
-###### Backend 
+##### Backend 
 
 - Express *@4.17.1*
 - Graphql *@15.7.2*
@@ -82,12 +85,12 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 - Facebook Oauth *@3.0.0*
 - Google Oauth *@2.0.0*
 
-###### Containerization
+##### Containerization
 
 - Docker
 - Docker Compose
 
-###### Reverse Proxy
+##### Reverse Proxy
 
 - Nginx
 
