@@ -64,6 +64,7 @@ The project was coded with the idea of trying new technologies, in this case, Gr
 <br/>
 <img align="center" src="https://raw.githubusercontent.com/JakubMaslanka/Reparify/master/client/public/tech-logo.png" alt="Technologies_Logos" />
 <br/>
+
 ##### Frontend
 
 - React *@17.0.2*
